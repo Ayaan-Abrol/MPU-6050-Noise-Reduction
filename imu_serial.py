@@ -1,13 +1,13 @@
 from machine import Pin, I2C
 import time
 
-# ===== MPU6050 driver =====
+
 class MPU6050:
     ADDRESS = 0x68
 
     def __init__(self, i2c):
         self.i2c = i2c
-        # Wake up MPU6050
+        
         self.i2c.writeto_mem(self.ADDRESS, 0x6B, b'\x00')
         self.gyro_bias = [0, 0, 0]
 
@@ -42,20 +42,20 @@ class MPU6050:
         self.gyro_bias = [gx_sum / samples, gy_sum / samples, gz_sum / samples]
         print("Calibration done. Bias:", self.gyro_bias)
 
-# ===== I2C setup =====
+
 i2c = I2C(0, scl=Pin(1), sda=Pin(0))
 mpu = MPU6050(i2c)
 
-# ===== Calibrate gyro at startup =====
+
 mpu.calibrate_gyro()
 
-# ===== Main loop: send CSV over USB serial =====
+
 while True:
     t = time.ticks_ms() / 1000
     ax, ay, az = mpu.get_accel()
     gx, gy, gz = mpu.get_gyro()
 
-    # Print CSV line for VS Code logger
+    
     print(f"{t:.3f},{ax:.3f},{ay:.3f},{az:.3f},{gx:.3f},{gy:.3f},{gz:.3f}")
 
-    time.sleep(0.05)  # 20 Hz
+    time.sleep(0.05)
