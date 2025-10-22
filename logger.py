@@ -8,7 +8,7 @@ LOG_FILE = "imu_data.csv"
 try:
     ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
 except serial.SerialException:
-    print(f"Could not open {SERIAL_PORT}. Make sure the Pico is connected and no other program is using it.")
+    print(f"ERROR")
     exit()
 
 time.sleep(2)  
@@ -18,7 +18,7 @@ with open(LOG_FILE, mode='w', newline='') as f:
     writer = csv.writer(f)
     writer.writerow(["time", "acc_x", "acc_y", "acc_z", "gyro_x", "gyro_y", "gyro_z"])
 
-    print("[*] Logging data... Press Ctrl+C to stop")
+    print("Logging data")
 
     try:
         while True:
@@ -43,5 +43,5 @@ with open(LOG_FILE, mode='w', newline='') as f:
             f.flush()
 
     except KeyboardInterrupt:
-        print("\n[!] Logging stopped by user.")
+        print("Logging stopped")
         ser.close()
