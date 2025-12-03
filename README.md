@@ -1,1 +1,1 @@
-Real-time IMU data logger using Raspberry Pi Pico and MPU6050. Streams accelerometer and gyroscope data via serial to Python, logging it in CSV format. Includes noise reduction using Moving Average, Kalman, and Complementary filters for cleaner motion tracking.
+Real-time IMU data logger using Raspberry Pi Pico and MPU6050. Streams accelerometer and gyroscope data via serial to Python, logging it in CSV format. Includes noise reduction using , Kalman, and EKF+Madgwick filters for cleaner motion tracking.
